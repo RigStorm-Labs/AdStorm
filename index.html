@@ -1,635 +1,713 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdStorm - Ride the Storm of Ads</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AdStorm</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-        }
+  <!-- Popunder (before </head>) -->
+  <script src="https://pl29776432.effectivecpmnetwork.com/5b/33/0d/5b330de59c994d8eac74972cc21685b3.js"></script>
 
-        /* Header & Navigation */
-        header {
-            background-color: #fff;
-            border-bottom: 3px solid #0066cc;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
+  <!-- Social Bar (loads with page) -->
+  <script src="https://pl29776437.effectivecpmnetwork.com/71/20/2e/71202e9adc10619fee5ab5010319a93f.js"></script>
 
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #0066cc;
-            text-decoration: none;
-        }
+    :root {
+      --bg:       #0a0a0f;
+      --surface:  #111118;
+      --card:     #16161f;
+      --border:   #1e1e2e;
+      --accent:   #7c5cfc;
+      --accent2:  #c084fc;
+      --text:     #e2e2f0;
+      --muted:    #6b6b8a;
+      --glow:     rgba(124, 92, 252, 0.18);
+    }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
+    html { scroll-behavior: smooth; }
 
-        nav a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        nav a:hover {
-            color: #0066cc;
-        }
+    /* ── NOISE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #0066cc;
-        }
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(10, 10, 15, 0.85);
+      border-bottom: 1px solid var(--border);
+      padding: 0 clamp(1rem, 5vw, 3rem);
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
-            color: white;
-            padding: 4rem 2rem;
-            text-align: center;
-        }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
 
-        .hero p {
-            font-size: 1.3rem;
-            opacity: 0.95;
-        }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--text); }
 
-        /* Main Container */
-        .container {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 1fr 300px;
-            gap: 2rem;
-        }
+    /* ── LEADERBOARD TOP (728×90) ── */
+    .ad-leaderboard-top {
+      display: flex;
+      justify-content: center;
+      padding: 12px 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      min-height: 90px;
+    }
 
-        /* Main Content */
-        .main-content {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-        }
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      padding: clamp(4rem, 10vw, 8rem) clamp(1rem, 5vw, 3rem) clamp(3rem, 8vw, 6rem);
+      text-align: center;
+      overflow: hidden;
+    }
 
-        .section-title {
-            font-size: 1.8rem;
-            color: #0066cc;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #e0e0e0;
-        }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(124,92,252,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
 
-        /* Blog Posts */
-        .blog-posts {
-            display: grid;
-            gap: 2rem;
-        }
+    .hero-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid rgba(124,92,252,0.3);
+      border-radius: 99px;
+      padding: 4px 14px;
+      margin-bottom: 1.5rem;
+    }
 
-        .blog-post {
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            overflow: hidden;
-            transition: box-shadow 0.3s ease;
-        }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.4rem, 6vw, 5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.1;
+      max-width: 780px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(160deg, #ffffff 40%, var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .blog-post:hover {
-            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.15);
-        }
+    .hero p {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--muted);
+      max-width: 560px;
+      margin: 0 auto 2.5rem;
+    }
 
-        .blog-post-image {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(135deg, #0066cc 0%, #00ccff 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1rem;
-        }
+    .btn-group { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
 
-        .blog-post-content {
-            padding: 1.5rem;
-        }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
 
-        .blog-post h3 {
-            color: #0066cc;
-            margin-bottom: 0.5rem;
-            font-size: 1.3rem;
-        }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 0 20px var(--glow);
+    }
+    .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 0 30px rgba(124,92,252,0.35); }
 
-        .blog-post-meta {
-            color: #999;
-            font-size: 0.9rem;
-            margin-bottom: 1rem;
-        }
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-        .blog-post p {
-            color: #666;
-            margin-bottom: 1rem;
-        }
+    /* ── MAIN LAYOUT ── */
+    .page-body {
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem clamp(1rem, 4vw, 2rem);
+    }
 
-        .read-more {
-            color: #0066cc;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
+    @media (max-width: 900px) {
+      .page-body { grid-template-columns: 1fr; }
+    }
 
-        .read-more:hover {
-            color: #004499;
-        }
+    /* ── CONTENT AREA ── */
+    .content-area { min-width: 0; }
 
-        /* Sidebar */
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
+    /* ── SECTION TITLES ── */
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
 
-        .ad-block {
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            padding: 1.5rem;
-            text-align: center;
-        }
+    .section-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.3rem, 3vw, 1.8rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 1.5rem;
+      color: var(--text);
+    }
 
-        .ad-label {
-            font-size: 0.75rem;
-            color: #999;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 0.5rem;
-        }
+    /* ── CARD GRID ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
 
-        .ad-placeholder {
-            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
-            height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #999;
-            font-size: 0.9rem;
-            border-radius: 4px;
-            margin-bottom: 0.5rem;
-        }
+    .card {
+      background: var(--card);
+      padding: 1.5rem;
+      transition: background 0.2s;
+    }
+    .card:hover { background: #1a1a26; }
 
-        .ad-script-info {
-            font-size: 0.8rem;
-            color: #999;
-            padding-top: 0.5rem;
-            border-top: 1px solid #e0e0e0;
-        }
+    .card-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--glow);
+      border: 1px solid rgba(124,92,252,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      margin-bottom: 0.9rem;
+    }
 
-        /* Footer */
-        footer {
-            background-color: #fff;
-            border-top: 3px solid #0066cc;
-            margin-top: 3rem;
-            padding: 2rem;
-        }
+    .card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+      color: var(--text);
+    }
 
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
+    .card p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
 
-        .footer-section h4 {
-            color: #0066cc;
-            margin-bottom: 1rem;
-        }
+    /* ── IN-CONTENT 728×90 ── */
+    .ad-leaderboard-content {
+      display: flex;
+      justify-content: center;
+      margin: 2rem 0;
+      min-height: 90px;
+      overflow: hidden;
+    }
 
-        .footer-section ul {
-            list-style: none;
-        }
+    /* ── CONTENT BLOCKS ── */
+    .content-block {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+    }
 
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
+    .content-block h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-        .footer-section a {
-            color: #666;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+    .tag {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(124,92,252,0.15);
+      color: var(--accent2);
+      border: 1px solid rgba(124,92,252,0.2);
+    }
 
-        .footer-section a:hover {
-            color: #0066cc;
-        }
+    .list-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .list-item:last-child { border-bottom: none; padding-bottom: 0; }
 
-        .footer-contact {
-            margin-top: 1rem;
-        }
+    .list-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 0.45rem;
+      flex-shrink: 0;
+    }
 
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid #e0e0e0;
-            color: #999;
-            font-size: 0.9rem;
-        }
+    .list-item-text { font-size: 0.875rem; color: var(--muted); }
+    .list-item-title { font-size: 0.9rem; font-weight: 500; color: var(--text); margin-bottom: 0.1rem; }
 
-        /* Contact Section */
-        .contact-section {
-            background: linear-gradient(135deg, #f9f9f9 0%, #fff 100%);
-            padding: 2rem;
-            border-radius: 8px;
-            margin: 2rem auto;
-            max-width: 1200px;
-        }
+    /* ── SIDEBAR ── */
+    .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
 
-        .contact-form {
-            display: grid;
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
+    .sidebar-widget {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-        }
+    .widget-header {
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
 
-        .form-group label {
-            color: #0066cc;
-            font-weight: 500;
-            margin-bottom: 0.5rem;
-        }
+    /* ── 300×250 AD SIDEBAR ── */
+    .ad-rectangle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      min-height: 250px;
+      overflow: hidden;
+    }
 
-        .form-group input,
-        .form-group textarea {
-            padding: 0.8rem;
-            border: 1px solid #e0e0e0;
-            border-radius: 4px;
-            font-family: inherit;
-            font-size: 1rem;
-        }
+    .sidebar-links { padding: 0.5rem 0; }
 
-        .form-group textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+    .sidebar-link:hover { background: rgba(124,92,252,0.06); color: var(--text); }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #0066cc;
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
-        }
+    .sidebar-link-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background 0.15s;
+    }
+    .sidebar-link:hover .sidebar-link-dot { background: var(--accent); }
 
-        .submit-btn {
-            background-color: #0066cc;
-            color: white;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 4px;
-            font-size: 1rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            align-self: flex-start;
-        }
+    /* ── STATS BAR ── */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 2.5rem;
+    }
 
-        .submit-btn:hover {
-            background-color: #004499;
-        }
+    .stat {
+      background: var(--card);
+      padding: 1.25rem;
+      text-align: center;
+    }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
+    .stat-value {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-            nav ul {
-                gap: 1rem;
-                flex-direction: column;
-            }
+    .stat-label {
+      font-size: 0.73rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+      margin-top: 0.2rem;
+    }
 
-            .mobile-menu-toggle {
-                display: block;
-            }
+    /* ── BOTTOM LEADERBOARD ── */
+    .ad-leaderboard-bottom {
+      display: flex;
+      justify-content: center;
+      padding: 1.5rem 0;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      min-height: 90px;
+      margin-top: 2rem;
+    }
 
-            nav {
-                display: none;
-                width: 100%;
-            }
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
 
-            nav.active {
-                display: block;
-            }
+    footer a { color: var(--accent); text-decoration: none; }
 
-            .hero h1 {
-                font-size: 1.8rem;
-            }
+    /* ── DIVIDER ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 2rem 0;
+    }
 
-            .hero p {
-                font-size: 1rem;
-            }
-
-            .container {
-                grid-template-columns: 1fr;
-            }
-
-            .sidebar {
-                order: -1;
-            }
-
-            .footer-container {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Ad Script Integration Points */
-        .ad-header {
-            background-color: #fff;
-            border-bottom: 1px solid #e0e0e0;
-            padding: 1rem 2rem;
-            text-align: center;
-        }
-
-        .page-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-    </style>
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+  </style>
 </head>
 <body>
-    <!-- Header & Navigation -->
-    <header>
-        <div class="header-container">
-            <a href="#" class="logo">⚡ AdStorm</a>
-            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
-            <nav id="navigation">
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#articles">Articles</a></li>
-                    <li><a href="#ads">Ads</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Header Ad Space -->
-    <div class="ad-header">
-        <div class="ad-label">Advertisement</div>
-        <!-- GOOGLE ADSENSE CODE HERE -->
-        <!-- Replace with your Google AdSense code -->
-        <div style="background: #f0f0f0; padding: 1rem; border-radius: 4px; color: #999;">
-            Header Ad Space (728x90 or responsive)
-        </div>
-    </div>
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">AdStorm</div>
+    <ul class="nav-links">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Topics</a></li>
+      <li><a href="#">Tools</a></li>
+      <li><a href="#">About</a></li>
+    </ul>
+  </nav>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <h1>Welcome to AdStorm</h1>
-        <p>Ride the storm of ads and quality content</p>
-    </section>
-
-    <!-- Main Content -->
-    <div class="page-content">
-        <div class="container">
-            <!-- Main Blog Content -->
-            <main class="main-content">
-                <h2 class="section-title">Latest Articles</h2>
-                
-                <div class="blog-posts">
-                    <!-- Blog Post 1 -->
-                    <article class="blog-post" id="articles">
-                        <div class="blog-post-image">Featured Image 1</div>
-                        <div class="blog-post-content">
-                            <h3>10 Tips for Building Your Dream PC</h3>
-                            <div class="blog-post-meta">Published on June 17, 2026 | By Admin</div>
-                            <p>Discover the essential tips and tricks for building a powerful gaming PC. From choosing the right GPU to optimizing cooling solutions, learn everything you need to create the ultimate machine for gaming and productivity.</p>
-                            <a href="#" class="read-more">Read More →</a>
-                        </div>
-                    </article>
-
-                    <!-- Blog Post 2 -->
-                    <article class="blog-post">
-                        <div class="blog-post-image">Featured Image 2</div>
-                        <div class="blog-post-content">
-                            <h3>Best Budget Graphics Cards of 2026</h3>
-                            <div class="blog-post-meta">Published on June 15, 2026 | By Admin</div>
-                            <p>Looking for a great graphics card without breaking the bank? We've compiled a list of the best budget-friendly GPUs that deliver excellent performance for gaming, streaming, and content creation.</p>
-                            <a href="#" class="read-more">Read More →</a>
-                        </div>
-                    </article>
-
-                    <!-- Blog Post 3 -->
-                    <article class="blog-post">
-                        <div class="blog-post-image">Featured Image 3</div>
-                        <div class="blog-post-content">
-                            <h3>CPU vs GPU: Understanding the Difference</h3>
-                            <div class="blog-post-meta">Published on June 12, 2026 | By Admin</div>
-                            <p>Confused about CPUs and GPUs? This comprehensive guide breaks down the differences, explains what each component does, and helps you understand which one matters most for your specific use case.</p>
-                            <a href="#" class="read-more">Read More →</a>
-                        </div>
-                    </article>
-
-                    <!-- Blog Post 4 -->
-                    <article class="blog-post">
-                        <div class="blog-post-image">Featured Image 4</div>
-                        <div class="blog-post-content">
-                            <h3>Overclocking 101: Boost Your PC Performance Safely</h3>
-                            <div class="blog-post-meta">Published on June 10, 2026 | By Admin</div>
-                            <p>Learn the basics of overclocking and how to safely push your hardware to its limits. We cover the risks, benefits, and step-by-step instructions to get the most performance out of your system.</p>
-                            <a href="#" class="read-more">Read More →</a>
-                        </div>
-                    </article>
-                </div>
-            </main>
-
-            <!-- Sidebar with Ad Placements -->
-            <aside class="sidebar" id="ads">
-                <!-- Top Sidebar Ad -->
-                <div class="ad-block">
-                    <div class="ad-label">Advertisement</div>
-                    <div class="ad-placeholder">Ad Space #1<br>(300x250)</div>
-                    <div class="ad-script-info">
-                        Insert Google AdSense or affiliate banner code here
-                    </div>
-                </div>
-
-                <!-- Middle Sidebar Ad -->
-                <div class="ad-block">
-                    <div class="ad-label">Advertisement</div>
-                    <div class="ad-placeholder">Ad Space #2<br>(300x250)</div>
-                    <div class="ad-script-info">
-                        PropellerAds or other ad network code
-                    </div>
-                </div>
-
-                <!-- Bottom Sidebar Ad -->
-                <div class="ad-block">
-                    <div class="ad-label">Advertisement</div>
-                    <div class="ad-placeholder">Ad Space #3<br>(300x250)</div>
-                    <div class="ad-script-info">
-                        Affiliate banner or promotion link
-                    </div>
-                </div>
-
-                <!-- Sticky Ad Block -->
-                <div class="ad-block">
-                    <div class="ad-label">Featured Link</div>
-                    <div style="padding: 1rem; background: linear-gradient(135deg, #0066cc 0%, #004499 100%); color: white; border-radius: 4px; text-align: center;">
-                        <p style="font-weight: bold; margin-bottom: 0.5rem;">RigStorm Labs</p>
-                        <p style="font-size: 0.9rem; margin-bottom: 1rem;">Premium PC Builds</p>
-                        <a href="https://rigstormlabs.linkpc.net" target="_blank" style="background: white; color: #0066cc; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; font-weight: bold; display: inline-block;">Visit Now →</a>
-                    </div>
-                </div>
-            </aside>
-        </div>
-    </div>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <h2 class="section-title">Get In Touch</h2>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
-            <!-- Contact Info -->
-            <div>
-                <h3 style="color: #0066cc; margin-bottom: 1rem;">Contact Information</h3>
-                <div style="margin-bottom: 1.5rem;">
-                    <p style="color: #999; font-size: 0.9rem; margin-bottom: 0.25rem;">EMAIL</p>
-                    <p style="font-weight: 500;"><a href="mailto:rigstormlabs@gmail.com" style="color: #0066cc; text-decoration: none;">rigstormlabs@gmail.com</a></p>
-                </div>
-                <h4 style="color: #0066cc; margin: 1.5rem 0 1rem 0;">Our Sites</h4>
-                <ul style="list-style: none;">
-                    <li style="margin-bottom: 0.75rem;">
-                        <a href="https://rigstormlabs.linkpc.net" target="_blank" style="color: #0066cc; text-decoration: none; font-weight: 500;">
-                            🔗 RigStorm Labs (PC Builds)
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://rigstormsitemarket.linkpc.net" target="_blank" style="color: #0066cc; text-decoration: none; font-weight: 500;">
-                            🔗 RigStorm SiteMarket (Website Buying)
-                        </a>
-                    </li>
-                </ul>
-            </div>
-
-            <!-- Contact Form -->
-            <div>
-                <h3 style="color: #0066cc; margin-bottom: 1rem;">Send us a Message</h3>
-                <form class="contact-form">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-container">
-            <div class="footer-section">
-                <h4>About AdStorm</h4>
-                <p style="color: #666; margin-bottom: 1rem;">AdStorm is your destination for quality content paired with relevant advertisements. We focus on delivering value to our readers while supporting content creators.</p>
-            </div>
-
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#articles">Articles</a></li>
-                    <li><a href="#ads">Advertise With Us</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Partners</h4>
-                <ul>
-                    <li><a href="https://rigstormlabs.linkpc.net" target="_blank">RigStorm Labs</a></li>
-                    <li><a href="https://rigstormsitemarket.linkpc.net" target="_blank">RigStorm SiteMarket</a></li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <div class="footer-contact">
-                    <p style="color: #666; margin-bottom: 0.5rem;">Email:</p>
-                    <p><a href="mailto:rigstormlabs@gmail.com">rigstormlabs@gmail.com</a></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2026 AdStorm. All rights reserved. | <a href="#" style="color: #0066cc;">Privacy Policy</a> | <a href="#" style="color: #0066cc;">Terms of Service</a></p>
-        </div>
-    </footer>
-
-    <!-- JavaScript for Mobile Menu -->
+  <!-- TOP LEADERBOARD AD (728×90) -->
+  <div class="ad-leaderboard-top">
     <script>
-        function toggleMenu() {
-            const nav = document.getElementById('navigation');
-            nav.classList.toggle('active');
-        }
-
-        // Close menu when a link is clicked
-        document.querySelectorAll('nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                document.getElementById('navigation').classList.remove('active');
-            });
-        });
-
-        // Contact form submission
-        document.querySelector('.contact-form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you soon.');
-            this.reset();
-        });
+      atOptions = {
+        'key' : 'c425429b1f3c71f78603035c551cf97f',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
     </script>
+    <script src="https://www.highperformanceformat.com/c425429b1f3c71f78603035c551cf97f/invoke.js"></script>
+  </div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-eyebrow">Discover · Explore · Learn</div>
+    <h1>Your Hub for Everything That Matters</h1>
+    <p>Curated content, tools, and resources — all in one sleek, fast, distraction-free space.</p>
+    <div class="btn-group">
+      <a href="#" class="btn btn-primary">Explore Now</a>
+      <a href="#" class="btn btn-ghost">Learn More</a>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div style="max-width:1200px;margin:0 auto;padding:0 clamp(1rem,4vw,2rem);">
+    <div class="stats-bar">
+      <div class="stat">
+        <div class="stat-value">10K+</div>
+        <div class="stat-label">Articles</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">500+</div>
+        <div class="stat-label">Categories</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value">Daily</div>
+        <div class="stat-label">Updates</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT + SIDEBAR -->
+  <div class="page-body">
+
+    <!-- LEFT: CONTENT -->
+    <main class="content-area">
+
+      <div class="section-label">Featured</div>
+      <div class="section-title">Popular Categories</div>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-icon">⚡</div>
+          <h3>Technology</h3>
+          <p>Latest in tech, software, hardware, and innovation.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎮</div>
+          <h3>Gaming</h3>
+          <p>Reviews, news, and guides for every platform.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💡</div>
+          <h3>Science</h3>
+          <p>Discoveries, research, and breakthroughs explained.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🌐</div>
+          <h3>World</h3>
+          <p>Global events, culture, and perspectives.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">💰</div>
+          <h3>Finance</h3>
+          <p>Markets, investing, crypto, and money management.</p>
+        </div>
+        <div class="card">
+          <div class="card-icon">🎨</div>
+          <h3>Creative</h3>
+          <p>Design, art, photography, and creative tools.</p>
+        </div>
+      </div>
+
+      <!-- IN-CONTENT AD (728×90) -->
+      <div class="ad-leaderboard-content">
+        <script>
+          atOptions = {
+            'key' : 'c425429b1f3c71f78603035c551cf97f',
+            'format' : 'iframe',
+            'height' : 90,
+            'width' : 728,
+            'params' : {}
+          };
+        </script>
+        <script src="https://www.highperformanceformat.com/c425429b1f3c71f78603035c551cf97f/invoke.js"></script>
+      </div>
+
+      <div class="content-block">
+        <h2>Trending Now <span class="tag">Live</span></h2>
+        <div class="list-item">
+          <div class="list-dot"></div>
+          <div>
+            <div class="list-item-title">AI & Machine Learning</div>
+            <div class="list-item-text">The latest models, tools, and research shaping artificial intelligence.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-dot"></div>
+          <div>
+            <div class="list-item-title">Space Exploration</div>
+            <div class="list-item-text">Missions, launches, and discoveries from around the cosmos.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-dot"></div>
+          <div>
+            <div class="list-item-title">Cybersecurity</div>
+            <div class="list-item-text">Threats, defenses, and everything you need to stay secure online.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-dot"></div>
+          <div>
+            <div class="list-item-title">Electric Vehicles</div>
+            <div class="list-item-text">EVs, charging infrastructure, and the future of transport.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-dot"></div>
+          <div>
+            <div class="list-item-title">Renewable Energy</div>
+            <div class="list-item-text">Solar, wind, and clean energy developments worldwide.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-block">
+        <h2>Quick Tools</h2>
+        <div class="list-item">
+          <div class="list-dot"></div>
+          <div>
+            <div class="list-item-title">Unit Converter</div>
+            <div class="list-item-text">Convert between any unit instantly.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-dot"></div>
+          <div>
+            <div class="list-item-title">Password Generator</div>
+            <div class="list-item-text">Create strong, secure passwords in one click.</div>
+          </div>
+        </div>
+        <div class="list-item">
+          <div class="list-dot"></div>
+          <div>
+            <div class="list-item-title">Color Picker</div>
+            <div class="list-item-text">Grab hex, RGB, and HSL values from any color.</div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- RIGHT: SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- 300×250 RECTANGLE AD -->
+      <div class="sidebar-widget">
+        <div class="widget-header">Sponsored</div>
+        <div class="ad-rectangle">
+          <script>
+            atOptions = {
+              'key' : 'c9851da0919726d01d63a00358f202f6',
+              'format' : 'iframe',
+              'height' : 250,
+              'width' : 300,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/c9851da0919726d01d63a00358f202f6/invoke.js"></script>
+        </div>
+      </div>
+
+      <!-- SIDEBAR LINKS WIDGET -->
+      <div class="sidebar-widget">
+        <div class="widget-header">Quick Links</div>
+        <div class="sidebar-links">
+          <a href="#" class="sidebar-link"><span class="sidebar-link-dot"></span>Technology</a>
+          <a href="#" class="sidebar-link"><span class="sidebar-link-dot"></span>Gaming</a>
+          <a href="#" class="sidebar-link"><span class="sidebar-link-dot"></span>Science</a>
+          <a href="#" class="sidebar-link"><span class="sidebar-link-dot"></span>Finance</a>
+          <a href="#" class="sidebar-link"><span class="sidebar-link-dot"></span>Health</a>
+          <a href="#" class="sidebar-link"><span class="sidebar-link-dot"></span>Creative</a>
+          <a href="#" class="sidebar-link"><span class="sidebar-link-dot"></span>World</a>
+        </div>
+      </div>
+
+      <!-- SECOND 300×250 AD (Smartlink placeholder - using same banner) -->
+      <div class="sidebar-widget">
+        <div class="widget-header">Advertisement</div>
+        <div class="ad-rectangle">
+          <script>
+            atOptions = {
+              'key' : 'c9851da0919726d01d63a00358f202f6',
+              'format' : 'iframe',
+              'height' : 250,
+              'width' : 300,
+              'params' : {}
+            };
+          </script>
+          <script src="https://www.highperformanceformat.com/c9851da0919726d01d63a00358f202f6/invoke.js"></script>
+        </div>
+      </div>
+
+    </aside>
+  </div>
+
+  <!-- BOTTOM LEADERBOARD AD (728×90) -->
+  <div class="ad-leaderboard-bottom">
+    <script>
+      atOptions = {
+        'key' : 'c425429b1f3c71f78603035c551cf97f',
+        'format' : 'iframe',
+        'height' : 90,
+        'width' : 728,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/c425429b1f3c71f78603035c551cf97f/invoke.js"></script>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 AdStorm · <a href="#">Privacy</a> · <a href="#">Terms</a> · <a href="#">Contact</a></p>
+  </footer>
+
+  <!-- Social Bar (above </body>) -->
+  <script src="https://pl29776437.effectivecpmnetwork.com/71/20/2e/71202e9adc10619fee5ab5010319a93f.js"></script>
+
 </body>
 </html>
