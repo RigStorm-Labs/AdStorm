@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AdStorm - Ride the Storm of Ads</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: #fff;
+            border-bottom: 3px solid #0066cc;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #0066cc;
+            text-decoration: none;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #0066cc;
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #0066cc;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0066cc 0%, #004499 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            color: #0066cc;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        /* Blog Posts */
+        .blog-posts {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .blog-post {
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            overflow: hidden;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .blog-post:hover {
+            box-shadow: 0 4px 8px rgba(0, 102, 204, 0.15);
+        }
+
+        .blog-post-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #0066cc 0%, #00ccff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1rem;
+        }
+
+        .blog-post-content {
+            padding: 1.5rem;
+        }
+
+        .blog-post h3 {
+            color: #0066cc;
+            margin-bottom: 0.5rem;
+            font-size: 1.3rem;
+        }
+
+        .blog-post-meta {
+            color: #999;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-post p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            color: #0066cc;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .read-more:hover {
+            color: #004499;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .ad-block {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .ad-label {
+            font-size: 0.75rem;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+        }
+
+        .ad-placeholder {
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #999;
+            font-size: 0.9rem;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+        }
+
+        .ad-script-info {
+            font-size: 0.8rem;
+            color: #999;
+            padding-top: 0.5rem;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #fff;
+            border-top: 3px solid #0066cc;
+            margin-top: 3rem;
+            padding: 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #0066cc;
+            margin-bottom: 1rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            color: #0066cc;
+        }
+
+        .footer-contact {
+            margin-top: 1rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #e0e0e0;
+            color: #999;
+            font-size: 0.9rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, #f9f9f9 0%, #fff 100%);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem auto;
+            max-width: 1200px;
+        }
+
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            color: #0066cc;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            padding: 0.8rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0066cc;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+        }
+
+        .submit-btn {
+            background-color: #0066cc;
+            color: white;
+            padding: 0.8rem 2rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .submit-btn:hover {
+            background-color: #004499;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+                flex-direction: column;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            nav {
+                display: none;
+                width: 100%;
+            }
+
+            nav.active {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                order: -1;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Ad Script Integration Points */
+        .ad-header {
+            background-color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 1rem 2rem;
+            text-align: center;
+        }
+
+        .page-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">⚡ AdStorm</a>
+            <button class="mobile-menu-toggle" onclick="toggleMenu()">☰</button>
+            <nav id="navigation">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#articles">Articles</a></li>
+                    <li><a href="#ads">Ads</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Header Ad Space -->
+    <div class="ad-header">
+        <div class="ad-label">Advertisement</div>
+        <!-- GOOGLE ADSENSE CODE HERE -->
+        <!-- Replace with your Google AdSense code -->
+        <div style="background: #f0f0f0; padding: 1rem; border-radius: 4px; color: #999;">
+            Header Ad Space (728x90 or responsive)
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Welcome to AdStorm</h1>
+        <p>Ride the storm of ads and quality content</p>
+    </section>
+
+    <!-- Main Content -->
+    <div class="page-content">
+        <div class="container">
+            <!-- Main Blog Content -->
+            <main class="main-content">
+                <h2 class="section-title">Latest Articles</h2>
+                
+                <div class="blog-posts">
+                    <!-- Blog Post 1 -->
+                    <article class="blog-post" id="articles">
+                        <div class="blog-post-image">Featured Image 1</div>
+                        <div class="blog-post-content">
+                            <h3>10 Tips for Building Your Dream PC</h3>
+                            <div class="blog-post-meta">Published on June 17, 2026 | By Admin</div>
+                            <p>Discover the essential tips and tricks for building a powerful gaming PC. From choosing the right GPU to optimizing cooling solutions, learn everything you need to create the ultimate machine for gaming and productivity.</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 2 -->
+                    <article class="blog-post">
+                        <div class="blog-post-image">Featured Image 2</div>
+                        <div class="blog-post-content">
+                            <h3>Best Budget Graphics Cards of 2026</h3>
+                            <div class="blog-post-meta">Published on June 15, 2026 | By Admin</div>
+                            <p>Looking for a great graphics card without breaking the bank? We've compiled a list of the best budget-friendly GPUs that deliver excellent performance for gaming, streaming, and content creation.</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 3 -->
+                    <article class="blog-post">
+                        <div class="blog-post-image">Featured Image 3</div>
+                        <div class="blog-post-content">
+                            <h3>CPU vs GPU: Understanding the Difference</h3>
+                            <div class="blog-post-meta">Published on June 12, 2026 | By Admin</div>
+                            <p>Confused about CPUs and GPUs? This comprehensive guide breaks down the differences, explains what each component does, and helps you understand which one matters most for your specific use case.</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </article>
+
+                    <!-- Blog Post 4 -->
+                    <article class="blog-post">
+                        <div class="blog-post-image">Featured Image 4</div>
+                        <div class="blog-post-content">
+                            <h3>Overclocking 101: Boost Your PC Performance Safely</h3>
+                            <div class="blog-post-meta">Published on June 10, 2026 | By Admin</div>
+                            <p>Learn the basics of overclocking and how to safely push your hardware to its limits. We cover the risks, benefits, and step-by-step instructions to get the most performance out of your system.</p>
+                            <a href="#" class="read-more">Read More →</a>
+                        </div>
+                    </article>
+                </div>
+            </main>
+
+            <!-- Sidebar with Ad Placements -->
+            <aside class="sidebar" id="ads">
+                <!-- Top Sidebar Ad -->
+                <div class="ad-block">
+                    <div class="ad-label">Advertisement</div>
+                    <div class="ad-placeholder">Ad Space #1<br>(300x250)</div>
+                    <div class="ad-script-info">
+                        Insert Google AdSense or affiliate banner code here
+                    </div>
+                </div>
+
+                <!-- Middle Sidebar Ad -->
+                <div class="ad-block">
+                    <div class="ad-label">Advertisement</div>
+                    <div class="ad-placeholder">Ad Space #2<br>(300x250)</div>
+                    <div class="ad-script-info">
+                        PropellerAds or other ad network code
+                    </div>
+                </div>
+
+                <!-- Bottom Sidebar Ad -->
+                <div class="ad-block">
+                    <div class="ad-label">Advertisement</div>
+                    <div class="ad-placeholder">Ad Space #3<br>(300x250)</div>
+                    <div class="ad-script-info">
+                        Affiliate banner or promotion link
+                    </div>
+                </div>
+
+                <!-- Sticky Ad Block -->
+                <div class="ad-block">
+                    <div class="ad-label">Featured Link</div>
+                    <div style="padding: 1rem; background: linear-gradient(135deg, #0066cc 0%, #004499 100%); color: white; border-radius: 4px; text-align: center;">
+                        <p style="font-weight: bold; margin-bottom: 0.5rem;">RigStorm Labs</p>
+                        <p style="font-size: 0.9rem; margin-bottom: 1rem;">Premium PC Builds</p>
+                        <a href="https://rigstormlabs.linkpc.net" target="_blank" style="background: white; color: #0066cc; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none; font-weight: bold; display: inline-block;">Visit Now →</a>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+            <!-- Contact Info -->
+            <div>
+                <h3 style="color: #0066cc; margin-bottom: 1rem;">Contact Information</h3>
+                <div style="margin-bottom: 1.5rem;">
+                    <p style="color: #999; font-size: 0.9rem; margin-bottom: 0.25rem;">EMAIL</p>
+                    <p style="font-weight: 500;"><a href="mailto:rigstormlabs@gmail.com" style="color: #0066cc; text-decoration: none;">rigstormlabs@gmail.com</a></p>
+                </div>
+                <h4 style="color: #0066cc; margin: 1.5rem 0 1rem 0;">Our Sites</h4>
+                <ul style="list-style: none;">
+                    <li style="margin-bottom: 0.75rem;">
+                        <a href="https://rigstormlabs.linkpc.net" target="_blank" style="color: #0066cc; text-decoration: none; font-weight: 500;">
+                            🔗 RigStorm Labs (PC Builds)
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://rigstormsitemarket.linkpc.net" target="_blank" style="color: #0066cc; text-decoration: none; font-weight: 500;">
+                            🔗 RigStorm SiteMarket (Website Buying)
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact Form -->
+            <div>
+                <h3 style="color: #0066cc; margin-bottom: 1rem;">Send us a Message</h3>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h4>About AdStorm</h4>
+                <p style="color: #666; margin-bottom: 1rem;">AdStorm is your destination for quality content paired with relevant advertisements. We focus on delivering value to our readers while supporting content creators.</p>
+            </div>
+
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#articles">Articles</a></li>
+                    <li><a href="#ads">Advertise With Us</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Partners</h4>
+                <ul>
+                    <li><a href="https://rigstormlabs.linkpc.net" target="_blank">RigStorm Labs</a></li>
+                    <li><a href="https://rigstormsitemarket.linkpc.net" target="_blank">RigStorm SiteMarket</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contact</h4>
+                <div class="footer-contact">
+                    <p style="color: #666; margin-bottom: 0.5rem;">Email:</p>
+                    <p><a href="mailto:rigstormlabs@gmail.com">rigstormlabs@gmail.com</a></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 AdStorm. All rights reserved. | <a href="#" style="color: #0066cc;">Privacy Policy</a> | <a href="#" style="color: #0066cc;">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu -->
+    <script>
+        function toggleMenu() {
+            const nav = document.getElementById('navigation');
+            nav.classList.toggle('active');
+        }
+
+        // Close menu when a link is clicked
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('navigation').classList.remove('active');
+            });
+        });
+
+        // Contact form submission
+        document.querySelector('.contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
