@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://adstorm.run.place/sitemap.xml
