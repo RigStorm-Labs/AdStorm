@@ -208,51 +208,63 @@ tailwind.config = {
   <div class="max-w-7xl mx-auto">
     <p class="reveal text-[11px] sm:text-xs font-bold tracking-[0.14em] text-lime">05 — PACKAGES</p>
     <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mt-4">
-      <h2 id="packages-h" class="reveal font-display font-black tracking-tight text-4xl sm:text-5xl lg:text-6xl">Three tiers.<br>One direction: forward.</h2>
+      <h2 id="packages-h" class="reveal font-display font-black tracking-tight text-4xl sm:text-5xl lg:text-6xl">Four packages.<br>One direction: forward.</h2>
       <a href="packages.html" class="reveal btn-secondary cursor-pointer text-sm font-semibold border border-white/25 rounded-xl px-5 py-3 hover:bg-white/10 w-fit">Full comparison</a>
     </div>
-    <div class="grid md:grid-cols-3 gap-5 mt-12">
+    <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-5 mt-12">
       <article class="reveal bg-n900 border border-white/10 rounded-2xl p-8 flex flex-col">
-        <p class="text-[11px] font-bold tracking-[0.14em] text-n300">TIER 1</p>
-        <h3 class="font-display font-black text-3xl mt-2">Presence</h3>
-        <p class="text-n200 mt-2 text-[15px]">Establish a professional digital presence.</p>
+        <p class="text-[11px] font-bold tracking-[0.14em] text-n300">PACKAGE 1</p>
+        <h3 class="font-display font-black text-3xl mt-2">Spark</h3>
+        <p class="font-display font-extrabold text-xl mt-1 text-lime">₹3,999</p>
+        <p class="text-n200 mt-2 text-[15px] font-semibold">Get your business online and ready to grow.</p>
         <ul class="mt-6 space-y-2.5 text-[15px] text-n200 flex-1">
           <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Social profile setup / optimization</li>
           <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Basic marketing strategy</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Profile positioning</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Basic content direction</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Visibility recommendations</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Marketing consultation</li>
+          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Profile positioning + content direction</li>
+          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Visibility recommendations + consultation</li>
         </ul>
-        <button data-package="Presence" class="btn-secondary cursor-pointer mt-8 font-bold rounded-xl px-5 py-3.5 border border-white/25 hover:bg-white/10">Choose Presence</button>
+        <button data-package="Spark" class="btn-secondary cursor-pointer mt-8 font-bold rounded-xl px-5 py-3.5 border border-white/25 hover:bg-white/10">Choose Spark</button>
       </article>
       <article class="reveal bg-n900 border-2 border-lime rounded-2xl p-8 flex flex-col relative" data-delay="1">
         <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-lime text-ink text-xs font-black tracking-wide rounded-full px-4 py-1.5">MOST POPULAR</span>
-        <p class="text-[11px] font-bold tracking-[0.14em] text-lime">TIER 2</p>
+        <p class="text-[11px] font-bold tracking-[0.14em] text-lime">PACKAGE 2</p>
         <h3 class="font-display font-black text-3xl mt-2">Growth</h3>
-        <p class="text-n200 mt-2 text-[15px]">Build visibility and generate more opportunities.</p>
+        <p class="font-display font-extrabold text-xl mt-1 text-lime">₹6,999</p>
+        <p class="text-n200 mt-2 text-[15px] font-semibold">Build visibility and turn attention into opportunities.</p>
         <ul class="mt-6 space-y-2.5 text-[15px] text-n200 flex-1">
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Everything in Presence</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Social media marketing</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Content planning + campaign strategy</li>
+          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Everything in Spark</li>
+          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Social media marketing + content planning</li>
           <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Paid advertising allocation</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Google / Meta setup where right</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Monitoring, optimization, updates</li>
+          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Google / Meta setup + optimization</li>
         </ul>
         <button data-package="Growth" class="btn-primary cursor-pointer mt-8 font-bold rounded-xl px-5 py-3.5">Choose Growth →</button>
       </article>
       <article class="reveal bg-n900 border border-white/10 rounded-2xl p-8 flex flex-col" data-delay="2">
-        <p class="text-[11px] font-bold tracking-[0.14em] text-n300">TIER 3</p>
+        <p class="text-[11px] font-bold tracking-[0.14em] text-n300">PACKAGE 3</p>
         <h3 class="font-display font-black text-3xl mt-2">Momentum</h3>
-        <p class="text-n200 mt-2 text-[15px]">Run a broader managed marketing campaign.</p>
+        <p class="font-display font-extrabold text-xl mt-1 text-lime">₹9,999</p>
+        <p class="text-n200 mt-2 text-[15px] font-semibold">Put your marketing into motion and keep it moving.</p>
         <ul class="mt-6 space-y-2.5 text-[15px] text-n200 flex-1">
           <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Everything in Growth</li>
           <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Multi-channel marketing</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Advanced planning + bigger allocation</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Creative direction + consultation</li>
-          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Performance reporting + iteration</li>
+          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Greater allocation + creative direction</li>
+          <li class="flex gap-2"><span class="text-lime" aria-hidden="true">✓</span> Consultation, reporting + refinement</li>
         </ul>
         <button data-package="Momentum" class="btn-secondary cursor-pointer mt-8 font-bold rounded-xl px-5 py-3.5 border border-white/25 hover:bg-white/10">Choose Momentum</button>
+      </article>
+      <article class="reveal bg-offwhite text-ink rounded-2xl p-8 flex flex-col relative" data-delay="3">
+        <span class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-ink text-lime text-xs font-black tracking-wide rounded-full px-4 py-1.5">FLAGSHIP</span>
+        <p class="text-[11px] font-bold tracking-[0.14em] text-n500">PACKAGE 4</p>
+        <h3 class="font-display font-black text-3xl mt-2">The Apex</h3>
+        <p class="font-display font-extrabold text-xl mt-1">₹14,999</p>
+        <p class="text-n700 mt-2 text-[15px] font-semibold">Strategy, execution and optimization — one complete engagement.</p>
+        <ul class="mt-6 space-y-2.5 text-[15px] text-n700 flex-1">
+          <li class="flex gap-2"><span aria-hidden="true">✓</span> Full marketing strategy + management</li>
+          <li class="flex gap-2"><span aria-hidden="true">✓</span> Google + Meta strategy + paid management</li>
+          <li class="flex gap-2"><span aria-hidden="true">✓</span> Creative direction + market research</li>
+          <li class="flex gap-2"><span aria-hidden="true">✓</span> Consultations + detailed reporting</li>
+        </ul>
+        <button data-package="The Apex" class="cursor-pointer mt-8 font-bold rounded-xl px-5 py-3.5 bg-ink text-offwhite hover:-translate-y-0.5 transition-transform duration-200">Choose The Apex →</button>
       </article>
     </div>
     <p class="reveal text-sm text-n300 mt-8 max-w-3xl">Every campaign investment includes strategy, execution, creative direction, platform management, advertising allocation, optimization and reporting. Advertising spend, scope and platform allocation depend on your package and approved campaign plan.</p>
@@ -318,7 +330,7 @@ tailwind.config = {
       </div>
       <div class="faq-item reveal bg-white border border-n200 rounded-2xl" data-open="false">
         <button class="faq-q cursor-pointer w-full flex items-center justify-between gap-4 text-left font-display font-bold text-lg px-6 py-5" aria-expanded="false">Can I start with a small budget?<svg class="faq-icon w-5 h-5 flex-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
-        <div class="faq-a"><div><p class="px-6 pb-6 text-n700">Yes. Presence is designed for businesses getting started, and the Growth Brief lets you share any budget range — including "not sure yet". We'll recommend a realistic starting point.</p></div></div>
+        <div class="faq-a"><div><p class="px-6 pb-6 text-n700">Yes. Spark (₹3,999) is designed for businesses getting started, and the Growth Brief lets you share any budget range — including "not sure yet". We'll recommend a realistic starting point.</p></div></div>
       </div>
       <div class="faq-item reveal bg-white border border-n200 rounded-2xl" data-open="false">
         <button class="faq-q cursor-pointer w-full flex items-center justify-between gap-4 text-left font-display font-bold text-lg px-6 py-5" aria-expanded="false">What platforms do you use?<svg class="faq-icon w-5 h-5 flex-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
