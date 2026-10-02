@@ -19,8 +19,11 @@
     });
   }
   if (header) {
+    // Shadow lives on the rounded navbar container itself (first child),
+    // never on the full-width transparent header wrapper.
+    var navBar = header.firstElementChild;
     var onScroll = function () {
-      header.classList.toggle('shadow-2xl', window.scrollY > 24);
+      if (navBar) navBar.classList.toggle('shadow-2xl', window.scrollY > 24);
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();

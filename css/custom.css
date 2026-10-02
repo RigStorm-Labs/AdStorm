@@ -29,6 +29,11 @@ a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,te
 .btn-secondary{transition:background-color .2s ease,color .2s ease,border-color .2s ease,transform .18s ease}
 .btn-secondary:hover{transform:translateY(-2px)}
 
+/* Header wrapper must stay invisible: all visual styling lives on the inner
+   rounded navbar container. Scoped to #site-header only. */
+#site-header{background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+#site-header::before,#site-header::after{content:none!important;display:none!important}
+
 /* Nav link underline */
 .nav-link{position:relative}
 .nav-link::after{content:"";position:absolute;left:0;bottom:-4px;height:2px;width:0;background:var(--lime);transition:width .2s ease}
