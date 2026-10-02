@@ -56,11 +56,13 @@
       <legend class="sr-only">Section A — Contact</legend>
       <p class="text-[11px] font-black tracking-[0.14em] text-n500">SECTION A</p>
       <h2 class="font-display font-extrabold text-2xl mt-1">Contact</h2>
-      <p class="text-n700 text-[15px] mt-1">How do we reach you?</p>
+      <p class="text-n700 text-[15px] mt-1">How do we reach you? Provide an email address or a phone number — whichever is more convenient.</p>
       <div class="grid sm:grid-cols-2 gap-4 mt-5">
         <div><label for="full_name" class="block text-sm font-bold mb-1.5">Full Name <span class="text-red-700" aria-hidden="true">*</span></label><input class="field" id="full_name" name="full_name" type="text" autocomplete="name" required placeholder="Your full name"></div>
-        <div><label for="email" class="block text-sm font-bold mb-1.5">Email <span class="text-red-700" aria-hidden="true">*</span></label><input class="field" id="email" name="email" type="email" autocomplete="email" required placeholder="you@business.com"></div>
-        <div><label for="phone" class="block text-sm font-bold mb-1.5">Phone / WhatsApp <span class="text-red-700" aria-hidden="true">*</span></label><input class="field" id="phone" name="phone" type="tel" autocomplete="tel" required placeholder="+91 …"></div>
+        <div><label for="email" class="block text-sm font-bold mb-1.5">Email</label><input class="field" id="email" name="email" type="email" autocomplete="email" aria-describedby="contact-hint contact-err" placeholder="you@business.com"></div>
+        <div><label for="phone" class="block text-sm font-bold mb-1.5">Phone / WhatsApp</label><input class="field" id="phone" name="phone" type="tel" autocomplete="tel" aria-describedby="contact-hint contact-err" placeholder="+91 …"></div>
+        <p id="contact-hint" class="text-sm text-n500 sm:col-span-2 -mt-1">At least one contact method is required — email or phone.</p>
+        <p id="contact-err" class="err-text sm:col-span-2 -mt-2" role="alert"></p>
         <div><label for="preferred_contact" class="block text-sm font-bold mb-1.5">Preferred contact method <span class="text-red-700" aria-hidden="true">*</span></label><select class="field" id="preferred_contact" name="preferred_contact" required><option value="">Select…</option><option>WhatsApp</option><option>Phone call</option><option>Email</option></select></div>
       </div>
     </fieldset>

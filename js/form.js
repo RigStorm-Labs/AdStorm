@@ -7,6 +7,22 @@
   var success = document.getElementById('brief-success');
   var errorBox = document.getElementById('brief-error');
   var submitBtn = document.getElementById('brief-submit');
+  var emailInput = form.querySelector('#email');
+  var phoneInput = form.querySelector('#phone');
+  var contactErr = form.querySelector('#contact-err');
+  var CONTACT_MSG = 'Please provide an email address or phone number.';
+  // Conditional rule: at least one contact method is required (not per-field).
+  var contactValid = function () {
+    var e = emailInput ? emailInput.value.trim() : '';
+    var p = phoneInput ? phoneInput.value.trim() : '';
+    return e !== '' || p !== '';
+  };
+  var showContactError = function () {
+    if (contactErr) contactErr.textContent = CONTACT_MSG;
+    [emailInput, phoneInput].forEach(function (f) {
+      if (f) { f.classList.add('field-error'); f.setAttribute('aria-invalid', 'true'); }
+    });
+  };
   var sections = Array.prototype.slice.call(form.querySelectorAll('[data-brief-section]'));
 
   // Preselect package from ?package= (non-sensitive only)
@@ -70,17 +86,35 @@
   };
 
   form.querySelectorAll('input,select,textarea').forEach(function (f) {
-    f.addEventListener('blur', function () { validate(f); updateProgress(); });
+    f.addEventListener('blur', function () {
+      validate(f);
+      // Keep both contact fields marked while the combined error is showing.
+      if ((f === emailInput || f === phoneInput) && contactErr && contactErr.textContent !== '' && !contactValid()) showContactError();
+      updateProgress();
+    });
     f.addEventListener('input', updateProgress);
     f.addEventListener('change', updateProgress);
+  });
+  // Clear the combined contact error as soon as either method is provided.
+  [emailInput, phoneInput].forEach(function (f) {
+    if (f) f.addEventListener('input', function () {
+      if (contactErr && contactErr.textContent !== '' && contactValid()) {
+        contactErr.textContent = '';
+        // Re-run per-field checks so genuine format errors survive.
+        validate(emailInput);
+        validate(phoneInput);
+      }
+    });
   });
   updateProgress();
 
   form.addEventListener('submit', function (e) {
     var fields = Array.prototype.slice.call(form.querySelectorAll('input,select,textarea'));
     var ok = fields.map(validate).every(Boolean);
+    var contactOk = contactValid();
+    if (!contactOk) showContactError();
     updateProgress();
-    if (!ok) {
+    if (!ok || !contactOk) {
       e.preventDefault();
       var first = form.querySelector('.field-error');
       if (first) {
